@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Legends Risings — Zakupy</title>
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --card: #1a1a1a;
+      --accent: #f97316;
+      --accent-light: #fb923c;
+      --muted: #cbd5e1;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial;
+      color: #f1f5f9;
+      background: linear-gradient(180deg, #0d0d0d 0%, #1e1e1e 100%);
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+      min-height: 100vh;
+    }
+    .container { max-width: 980px; margin: 36px auto; padding: 24px; }
+    header { display: flex; gap: 16px; align-items: center; }
+    .logo img { width: 140px; height: auto; }
+    h1 { margin: 0; font-size: 24px; color: var(--accent); }
+    p.lead { margin: 6px 0 18px; color: var(--muted); }
+    .card {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.6);
+      margin-top: 24px;
+    }
+    h2 { color: var(--accent-light); margin-top: 0; }
+    .methods { display: flex; flex-wrap: wrap; gap: 12px; margin: 10px 0; }
+    .method {
+      background: rgba(255,255,255,0.05);
+      padding: 10px 14px;
+      border-radius: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .method .emoji { font-size: 20px; }
+    .note {
+      margin: 12px 0;
+      padding: 12px;
+      border-left: 4px solid var(--accent);
+      background: rgba(249,115,22,0.1);
+    }
+    .prices {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(140px,1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .price-card {
+      background: rgba(255,255,255,0.03);
+      padding: 14px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .price-card h3 { margin: 6px 0; font-size: 16px; color: var(--accent-light); }
+    .price { font-weight: 700; font-size: 18px; color: var(--accent); }
+    .cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .btn {
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: var(--accent-light); }
+    .btn.ghost {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--muted);
+    }
+
+    /* Social media w prawym dolnym rogu */
+    .socials {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .socials a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      color: #f1f5f9;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .socials a:hover { background: rgba(255,255,255,0.1); }
+    .socials span { font-size: 18px; }
+
+    @media (max-width:600px) {
+      header { flex-direction: column; align-items: flex-start; }
+      .logo img { width: 110px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <img src="logo.png" alt="Legends Risings Logo">
+      </div>
+      <div>
+        <h1>Legends Risings — Zakupy</h1>
+        <p class="lead">Zapoznaj się z metodami płatności oraz cenami rang.</p>
+      </div>
+    </header>
+
+    <div class="card">
+      <h2>🛒 Informacja dotycząca zakupów</h2>
+      <div class="methods">
+        <div class="method"><span class="emoji">💸</span><strong>BLIK</strong></div>
+        <div class="method"><span class="emoji">💳</span><strong>Paysafecard (PSC)</strong></div>
+        <div class="method"><span class="emoji">💰</span><strong>Donejt:</strong> <a href="https://tipply.pl/@vemsiak" target="_blank" rel="noopener noreferrer">tipply.pl/@vemsiak</a></div>
+      </div>
+
+      <div class="note">
+        ⚠️ <strong>Grając na serwerze akceptujesz regulamin i obowiązujące zasady. Dbaj o kulturę i szacunek wobec innych.</strong>
+      </div>
+
+      <div class="note">
+        ✉️ <strong>W celu dokonania zakupu należy skontaktować się z administracją serwera.</strong><br>
+        <small style="color:var(--muted)">Prosimy o cierpliwość — realizacja zakupu może zająć trochę czasu w zależności od dostępności administracji.</small>
+      </div>
+
+      <h3>Dostępne rangi</h3>
+      <div class="prices">
+        <div class="price-card"><h3>VIP</h3><div class="price">30 zł</div></div>
+        <div class="price-card"><h3>SVIP</h3><div class="price">50 zł</div></div>
+        <div class="price-card"><h3>MVIP</h3><div class="price">100 zł</div></div>
+        <div class="price-card"><h3>SPONSOR</h3><div class="price">150 zł</div></div>
+        <div class="price-card"><h3>PREMIUM</h3><div class="price">200 zł</div></div>
+      </div>
+
+      <div class="cta">
+        <a class="btn" href="https://discord.gg/U7WXRhmKNd" target="_blank" rel="noopener noreferrer">
+          💬 Skontaktuj się z administracją
+        </a>
+        <a class="btn ghost" href="https://tipply.pl/@vemsiak" target="_blank" rel="noopener noreferrer">Przejdź do Tipply</a>
+        <a class="btn ghost" href="index.html">Powrót do strony głównej</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social media -->
+  <div class="socials">
+    <a href="https://discord.gg/U7WXRhmKNd" target="_blank" rel="noopener noreferrer"><span>💬</span> Discord</a>
+    <a href="https://www.youtube.com/@LegendsRisings" target="_blank" rel="noopener noreferrer"><span>▶️</span> YouTube</a>
+    <a href="https://www.tiktok.com/@legends_risings" target="_blank" rel="noopener noreferrer"><span>🎵</span> TikTok</a>
+  </div>
+</body>
+</html>

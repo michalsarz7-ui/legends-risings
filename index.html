@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Legends Risings</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: linear-gradient(180deg, #0d0d0d 0%, #1e1e1e 100%);
+      color: #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      position: relative;
+    }
+    .logo img { width: 220px; margin-bottom: 30px; }
+    h1 { color: #f97316; margin-bottom: 40px; }
+    .buttons { display: flex; gap: 20px; flex-wrap: wrap; }
+    .btn {
+      padding: 14px 24px;
+      border-radius: 12px;
+      background: #f97316;
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn:hover { background: #fb923c; }
+
+    /* Social media w prawym dolnym rogu */
+    .socials {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .socials a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      color: #f1f5f9;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .socials a:hover { background: rgba(255,255,255,0.1); }
+    .socials span { font-size: 18px; }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <img src="logo.png" alt="Legends Risings Logo">
+  </div>
+  <h1>Legends Risings</h1>
+  <div class="buttons">
+    <a class="btn" href="zakupy.html">🛒 Zakupy</a>
+    <a class="btn" href="regulamin.html">🛡️ Regulamin</a>
+  </div>
+
+  <!-- Social media -->
+  <div class="socials">
+    <a href="https://discord.gg/U7WXRhmKNd" target="_blank" rel="noopener noreferrer">
+      <span>💬</span> Discord
+    </a>
+    <a href="https://www.youtube.com/@LegendsRisings" target="_blank" rel="noopener noreferrer">
+      <span>▶️</span> YouTube
+    </a>
+    <a href="https://www.tiktok.com/@legends_risings" target="_blank" rel="noopener noreferrer">
+      <span>🎵</span> TikTok
+    </a>
+  </div>
+</body>
+</html>
+
