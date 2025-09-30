@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Galeria – Pierwsza edycja | Legends Risings</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: linear-gradient(180deg, #0d0d0d 0%, #1e1e1e 100%);
+      color: #f1f5f9;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 { color: #f97316; margin-bottom: 30px; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .gallery img:hover { transform: scale(1.05); }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.85);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .modal img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+    }
+    .close { position: absolute; top: 20px; right: 30px; font-size: 40px; color: #fff; cursor: pointer; }
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 50px;
+      color: #fff;
+      cursor: pointer;
+      user-select: none;
+      padding: 10px;
+    }
+    .prev { left: 40px; }
+    .next { right: 40px; }
+
+    /* Przycisk powrotu */
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 14px 24px;
+      border-radius: 12px;
+      background: #f97316;
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn:hover { background: #fb923c; }
+    .btn.ghost {
+      background: transparent;
+      border: 2px solid #888888;
+      color: #888888;
+    }
+    .btn.ghost:hover { background: #888888; color: #fff; }
+
+    /* Social media */
+    .socials {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 1001;
+    }
+    .socials a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      color: #f1f5f9;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .socials a:hover { background: rgba(255,255,255,0.1); }
+    .socials span { font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h1>📸 Galeria – Pierwsza edycja</h1>
+
+  <div class="gallery">
+    <img src="zdjecia/ceroteam.png" alt="CeroTeam">
+    <img src="zdjecia/gruszki.png" alt="Gruszki">
+    <img src="zdjecia/lol.png" alt="LOL">
+    <img src="zdjecia/underTV.png" alt="underTV">
+    <img src="zdjecia/zx9.png" alt="ZX9">
+    <img src="zdjecia/bigmen.png" alt="BigMen">
+    <img src="zdjecia/casyno.png" alt="Casyno">
+    <img src="zdjecia/777.png" alt="777">
+  </div>
+
+  <a class="btn ghost" href="index.html">Powrót do strony głównej</a>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <span class="close" id="close">&times;</span>
+    <span class="nav-btn prev" id="prev">◀</span>
+    <img id="modalImg" src="" alt="">
+    <span class="nav-btn next" id="next">▶</span>
+  </div>
+
+  <!-- Social media -->
+  <div class="socials">
+    <a href="https://discord.gg/U7WXRhmKNd" target="_blank" rel="noopener noreferrer">
+      <span>💬</span> Discord
+    </a>
+    <a href="https://www.youtube.com/@LegendsRisings" target="_blank" rel="noopener noreferrer">
+      <span>▶️</span> YouTube
+    </a>
+    <a href="https://www.tiktok.com/@legends_risings" target="_blank" rel="noopener noreferrer">
+      <span>🎵</span> TikTok
+    </a>
+  </div>
+
+  <script>
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modalImg");
+    const closeBtn = document.getElementById("close");
+    const nextBtn = document.getElementById("next");
+    const prevBtn = document.getElementById("prev");
+
+    const images = Array.from(document.querySelectorAll(".gallery img"));
+    let currentIndex = 0;
+
+    function openModal(index) {
+      currentIndex = index;
+      modal.style.display = "flex";
+      modalImg.src = images[currentIndex].src;
+    }
+
+    function showNext() {
+      currentIndex = (currentIndex + 1) % images.length;
+      modalImg.src = images[currentIndex].src;
+    }
+
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      modalImg.src = images[currentIndex].src;
+    }
+
+    images.forEach((img, index) => {
+      img.addEventListener("click", () => openModal(index));
+    });
+
+    closeBtn.onclick = () => { modal.style.display = "none"; }
+    nextBtn.onclick = showNext;
+    prevBtn.onclick = showPrev;
+
+    modal.onclick = (e) => {
+      if (e.target === modal) modal.style.display = "none";
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (modal.style.display === "flex") {
+        if (e.key === "ArrowRight") showNext();
+        if (e.key === "ArrowLeft") showPrev();
+        if (e.key === "Escape") modal.style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
