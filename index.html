@@ -8,7 +8,6 @@
     body {
       margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: linear-gradient(180deg, #0d0d0d 0%, #1e1e1e 100%);
       color: #f1f5f9;
       display: flex;
       flex-direction: column;
@@ -17,7 +16,35 @@
       height: 100vh;
       text-align: center;
       position: relative;
+      overflow: hidden;
     }
+
+    /* Rozmyte tło */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('zdjecia/777.png') no-repeat center center / cover;
+      background-attachment: fixed;
+      filter: blur(8px);
+      z-index: -2;
+    }
+
+    /* Gradientowy overlay, maskuje białe krawędzie */
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+      z-index: -1;
+    }
+
     .logo img { width: 220px; margin-bottom: 30px; }
     h1 { color: #f97316; margin-bottom: 40px; }
     .buttons { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
@@ -55,6 +82,13 @@
     }
     .socials a:hover { background: rgba(255,255,255,0.1); }
     .socials span { font-size: 18px; }
+
+    /* Stopka z informacjami o serwerze i wersji */
+    .footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: rgba(241, 245, 249, 0.7);
+    }
   </style>
 </head>
 <body>
@@ -66,6 +100,12 @@
     <a class="btn" href="zakupy.html">🛒 Zakupy</a>
     <a class="btn" href="regulamin.html">🛡️ Regulamin</a>
     <a class="btn" href="galeria.html">📸 Galeria – Pierwsza edycja</a>
+    <a class="btn" href="news.html">📰 News</a>
+  </div>
+
+  <!-- Stopka z adresem IP i wersją -->
+  <div class="footer">
+    ip-legends.pl | wersja 1.21.5+
   </div>
 
   <!-- Social media -->
@@ -81,6 +121,8 @@
     </a>
   </div>
 </body>
+</html>
+
 
 
 
