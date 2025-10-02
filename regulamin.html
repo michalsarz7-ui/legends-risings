@@ -7,7 +7,6 @@
   <link rel="icon" type="image/png" href="logo.png" />
   <style>
     :root {
-      --bg: #0d0d0d;
       --card: #1a1a1a;
       --accent: #f97316;
       --accent-light: #fb923c;
@@ -19,18 +18,45 @@
       margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial;
       color: #f1f5f9;
-      background: linear-gradient(180deg, #0d0d0d 0%, #1e1e1e 100%);
       -webkit-font-smoothing: antialiased;
       position: relative;
       min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    .container { max-width: 980px; margin: 36px auto; padding: 24px; }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('zdjecia/1.png') no-repeat center center / cover;
+      background-attachment: fixed;
+      filter: blur(8px);
+      z-index: -2;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+      z-index: -1;
+    }
+
+    .container { max-width: 980px; margin: 36px auto; padding: 24px; flex: 1; }
     header { display: flex; gap: 16px; align-items: center; }
     .logo img { width: 140px; height: auto; }
     h1 { margin: 0; font-size: 24px; color: var(--accent); }
     p.lead { margin: 6px 0 18px; color: var(--muted); }
+
     .card {
-      background: var(--card);
+      background: rgba(26,26,26,0.9);
       padding: 20px;
       border-radius: 14px;
       box-shadow: 0 6px 18px rgba(0,0,0,0.6);
@@ -49,13 +75,14 @@
       align-items: center;
     }
     ul.rules li span.emoji { font-size: 20px; }
+
     .note {
       margin: 12px 0;
       padding: 12px;
       border-left: 4px solid var(--accent);
       background: rgba(249,115,22,0.1);
     }
-    footer { margin-top: 18px; color: var(--muted); font-size: 13px; }
+
     .btn.ghost {
       display: inline-block;
       margin-top: 8px;
@@ -63,12 +90,22 @@
       border-radius: 10px;
       background: transparent;
       border: 1px solid rgba(255,255,255,0.2);
-      color: var(--muted);
+      color: #f1f5f9;
       text-decoration: none;
       font-weight: 600;
       transition: background 0.2s;
+      cursor: pointer;
     }
     .btn.ghost:hover { background: rgba(255,255,255,0.1); }
+
+    /* Stopka */
+    .footer {
+      margin: 40px auto 20px;
+      font-size: 14px;
+      color: rgba(241, 245, 249, 0.7);
+      text-align: center;
+    }
+
     .socials {
       position: fixed;
       bottom: 20px;
@@ -91,6 +128,7 @@
     }
     .socials a:hover { background: rgba(255,255,255,0.1); }
     .socials span { font-size: 18px; }
+
     @media (max-width:600px) {
       header { flex-direction: column; align-items: flex-start; }
       .logo img { width: 110px; }
@@ -130,15 +168,21 @@
         <a class="btn ghost" href="index.html">⬅️ Powrót do strony głównej</a>
       </div>
     </div>
+
+    <!-- Stopka -->
+    <div class="footer">
+      ip-legends.pl | wersja 1.21.5+
+    </div>
   </div>
 
   <div class="socials">
-    <a href="https://discord.gg/U7WXRhmKNd" target="_blank"><span>💬</span> Discord</a>
-    <a href="https://www.youtube.com/@LegendsRisings" target="_blank"><span>▶️</span> YouTube</a>
-    <a href="https://www.tiktok.com/@legends_risings" target="_blank"><span>🎵</span> TikTok</a>
+    <a href="https://discord.gg/U7WXRhmKNd" target="_blank" rel="noopener noreferrer"><span>💬</span> Discord</a>
+    <a href="https://www.youtube.com/@LegendsRisings" target="_blank" rel="noopener noreferrer"><span>▶️</span> YouTube</a>
+    <a href="https://www.tiktok.com/@legends_risings" target="_blank" rel="noopener noreferrer"><span>🎵</span> TikTok</a>
   </div>
 </body>
 </html>
+
 
 
 
