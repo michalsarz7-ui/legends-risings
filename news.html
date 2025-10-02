@@ -1,0 +1,163 @@
+<!D<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nowa Edycja – Customowe Bronie | Legends Risings</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+
+  <style>
+    :root {
+      --card: rgba(26,26,26,0.85);
+      --accent: #f97316;
+      --accent-light: #fb923c;
+      --muted: #cbd5e1;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color: #f1f5f9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+    }
+
+    /* Tło z blur */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('zdjecia/3.png') no-repeat center center / cover;
+      filter: blur(8px);
+      z-index: -2;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 36px auto;
+      padding: 24px;
+      background: var(--card);
+      border-radius: 14px;
+    }
+
+    h1 { 
+      color: var(--accent); 
+      margin-bottom: 16px; 
+      text-align: center;
+    }
+    .date {
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+    .content {
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: left;
+    }
+    .content img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+
+    /* Guziki */
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn.ghost {
+      background: transparent;
+      border: 2px solid rgba(255,255,255,0.2);
+      color: #f1f5f9;
+    }
+    .btn.ghost:hover {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+
+    .footer {
+      margin-top: auto;
+      font-size: 14px;
+      color: var(--muted);
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .socials {
+      position: fixed; bottom: 20px; right: 20px;
+      display: flex; flex-direction: column; gap: 12px;
+      z-index: 1001;
+    }
+    .socials a {
+      display: flex; align-items: center; gap: 6px;
+      padding: 10px 14px; border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      color: #f1f5f9; text-decoration: none;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .socials a:hover { background: rgba(255,255,255,0.1); }
+    .socials span { font-size: 18px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Nowa Edycja – Customowe Bronie z Unikalnymi Teksturami! ⚔️🔥</h1>
+    <div class="date">02.10.2025</div>
+    <div class="content">
+      <p>Witajcie Wojownicy!<br>
+      Z radością ogłaszamy, że na nowej edycji pojawi się coś absolutnie wyjątkowego – 
+      <b>customowe bronie z własnymi, niepowtarzalnymi teksturami!</b></p>
+
+      <p>Każda broń została przygotowana specjalnie dla naszej społeczności i nie tylko świetnie wygląda, 
+      ale też wnosi świeżość do rozgrywki. Ogniste miecze, magiczne włócznie, mroczne kosy czy 
+      legendarne ostrza – każdy znajdzie coś dla siebie.</p>
+
+      <h3>🌟 Co was czeka?</h3>
+      <ul>
+        <li>Unikalne modele 3D i ręcznie robione tekstury</li>
+        <li>Bronie o różnym stylu i klimacie – od fantasy po epickie legendarne artefakty</li>
+        <li>Nowe możliwości PvP oraz jeszcze więcej emocji w walce</li>
+      </ul>
+
+      <p>Przygotujcie się na zupełnie nowy wymiar gry – edycja startuje już niedługo, 
+      a customowe bronie będą tylko u nas! 🔥</p>
+
+      <img src="zdjecia/custom.png" alt="Customowe bronie">
+
+      <p>👉 Śledźcie nasze ogłoszenia, żeby nie przegapić startu!</p>
+    </div>
+    <a class="btn ghost" href="index.html">⬅️ Powrót do strony głównej</a>
+  </div>
+
+  <div class="footer">
+    ip-legends.pl | wersja 1.21.5+
+  </div>
+
+  <div class="socials">
+    <a href="https://discord.gg/U7WXRhmKNd" target="_blank" rel="noopener noreferrer"><span>💬</span> Discord</a>
+    <a href="https://www.youtube.com/@LegendsRisings" target="_blank" rel="noopener noreferrer"><span>▶️</span> YouTube</a>
+    <a href="https://www.tiktok.com/@legends_risings" target="_blank" rel="noopener noreferrer"><span>🎵</span> TikTok</a>
+  </div>
+</body>
+</html>
+
