@@ -9,16 +9,13 @@
   <meta name="description" content="Oficjalna strona serwera Minecraft Legends Risings — dołącz do społeczności, zobacz galerię i bądź na bieżąco z nowościami!" />
   <meta name="theme-color" content="#f97316">
 
-  <!-- Open Graph (Social preview) -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Legends Risings">
   <meta property="og:description" content="Wejdź do świata Legends Risings — Minecraft, eventy, społeczność i więcej!">
   <meta property="og:image" content="zdjecia/777.png">
   <meta property="og:type" content="website">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
-
-  <!-- Czcionka Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -79,7 +76,6 @@
       filter: brightness(1.15) drop-shadow(0 0 15px rgba(249, 115, 22, 0.4));
     }
 
-    /* Nagłówek z przepływającym gradientem */
     h1 {
       font-size: 2.4rem;
       letter-spacing: 1px;
@@ -115,7 +111,10 @@
       text-decoration: none;
       transition: all 0.25s ease;
       box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+      cursor: pointer;
+      border: none;
     }
+
     .btn:hover {
       background: var(--primary-hover);
       transform: scale(1.05);
@@ -169,6 +168,68 @@
       .socials { right: 10px; bottom: 10px; }
       .logo img { width: 180px; }
     }
+
+    /* === MODAL KONTAKTU === */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: rgba(20,20,20,0.9);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 30px 40px;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      text-align: center;
+      animation: fadeInUp 0.3s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-content h2 {
+      color: #f97316;
+      margin-bottom: 10px;
+    }
+
+    .modal-content p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      background: #f97316;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+
+    .close-btn:hover {
+      background: #fb923c;
+      transform: scale(1.05);
+    }
   </style>
 </head>
 
@@ -184,6 +245,7 @@
     <a class="btn" href="regulamin.html">🛡️ Regulamin</a>
     <a class="btn" href="galeria.html">📸 Galeria – Pierwsza edycja</a>
     <a class="btn" href="news.html">📰 News</a>
+    <button class="btn" id="contactBtn">📬 Kontakt</button>
   </div>
 
   <div class="footer">
@@ -191,95 +253,76 @@
   </div>
 
   <div class="socials">
-    <a href="https://discord.gg/U7WXRhmKNd" target="_blank" rel="noopener noreferrer">
-      <span>💬</span> Discord
-    </a>
-    <a href="https://www.youtube.com/@LegendsRisings" target="_blank" rel="noopener noreferrer">
-      <span>▶️</span> YouTube
-    </a>
-    <a href="https://www.tiktok.com/@legends_risings" target="_blank" rel="noopener noreferrer">
-      <span>🎵</span> TikTok
-    </a>
+    <a href="https://discord.gg/U7WXRhmKNd" target="_blank"><span>💬</span> Discord</a>
+    <a href="https://www.youtube.com/@LegendsRisings" target="_blank"><span>▶️</span> YouTube</a>
+    <a href="https://www.tiktok.com/@legends_risings" target="_blank"><span>🎵</span> TikTok</a>
   </div>
 
-  <!-- NIESPODZIANKA #1: Losowe ukryte teksty -->
-  <script>
-    const secretMessages = [
-      "👀 Ktoś tu jest?",
-      "✨ Coś się zbliża...",
-      "🤫 Sekret Legends...",
-      "🌌 Czy to przypadek?",
-      "🔥 Czujesz tę energię?"
-    ];
+  <!-- MODAL KONTAKTU -->
+  <div class="modal" id="contactModal">
+    <div class="modal-content">
+      <h2>📬 Kontakt</h2>
+      <p>Kwestie biznesowe i współpraca:<br>
+      <strong style="color:#fb923c;">legends-biznes@op.pl</strong></p>
+      <button class="close-btn">Zamknij</button>
+    </div>
+  </div>
 
+  <script>
+    const contactBtn = document.getElementById('contactBtn');
+    const contactModal = document.getElementById('contactModal');
+    const closeBtn = contactModal.querySelector('.close-btn');
+
+    contactBtn.addEventListener('click', () => contactModal.classList.add('active'));
+    closeBtn.addEventListener('click', () => contactModal.classList.remove('active'));
+    contactModal.addEventListener('click', e => {
+      if (e.target === contactModal) contactModal.classList.remove('active');
+    });
+  </script>
+
+  <!-- Sekretne animacje -->
+  <script>
+    const secretMessages = ["👀 Ktoś tu jest?", "✨ Coś się zbliża...", "🤫 Sekret Legends...", "🌌 Czy to przypadek?", "🔥 Czujesz tę energię?"];
     function showSecretMessage() {
       const msg = document.createElement("div");
       msg.textContent = secretMessages[Math.floor(Math.random() * secretMessages.length)];
-      msg.style.position = "fixed";
-      msg.style.fontSize = "1rem";
-      msg.style.fontWeight = "600";
-      msg.style.opacity = "0";
-      msg.style.transition = "opacity 1s ease";
-      msg.style.pointerEvents = "none";
-
-      const randomX = Math.random() * 80 + 10;
-      const randomY = Math.random() * 80 + 10;
-
-      msg.style.left = randomX + "vw";
-      msg.style.top = randomY + "vh";
-
-      document.body.appendChild(msg);
-
+      msg.style.position = "fixed"; msg.style.fontSize = "1rem"; msg.style.fontWeight = "600";
+      msg.style.opacity = "0"; msg.style.transition = "opacity 1s ease"; msg.style.pointerEvents = "none";
+      const randomX = Math.random() * 80 + 10; const randomY = Math.random() * 80 + 10;
+      msg.style.left = randomX + "vw"; msg.style.top = randomY + "vh"; document.body.appendChild(msg);
       setTimeout(() => { msg.style.opacity = "1"; }, 50);
       setTimeout(() => { msg.style.opacity = "0"; }, 3500);
       setTimeout(() => { msg.remove(); }, 4500);
     }
-
     setInterval(showSecretMessage, 12000);
   </script>
 
-  <!-- NIESPODZIANKA #2: Konfetti po kliknięciu logo -->
   <script>
     function startConfetti() {
-      const duration = 1800;
-      const end = Date.now() + duration;
-
+      const duration = 1800; const end = Date.now() + duration;
       (function frame() {
         const colors = ['#f97316', '#fb923c', '#ffffff'];
         for (let i = 0; i < 12; i++) {
           const div = document.createElement('div');
-          div.style.position = 'fixed';
-          div.style.top = '-10px';
+          div.style.position = 'fixed'; div.style.top = '-10px';
           div.style.left = Math.random() * 100 + 'vw';
-          div.style.width = '8px';
-          div.style.height = '14px';
+          div.style.width = '8px'; div.style.height = '14px';
           div.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
           div.style.opacity = '0.9';
           div.style.transform = `rotate(${Math.random() * 360}deg)`;
           div.style.transition = 'transform 1.5s ease, top 1.5s ease, opacity 1.6s';
-
           document.body.appendChild(div);
-
-          setTimeout(() => {
-            div.style.top = '100vh';
-            div.style.opacity = '0';
-            div.style.transform = `rotate(${Math.random() * 360}deg)`;
-          }, 10);
-
+          setTimeout(() => { div.style.top = '100vh'; div.style.opacity = '0'; }, 10);
           setTimeout(() => div.remove(), 1600);
         }
         if (Date.now() < end) requestAnimationFrame(frame);
       })();
     }
-
     document.querySelector('.logo img')?.addEventListener('click', startConfetti);
   </script>
 
-  <!-- NIESPODZIANKA #3: Easter egg – wpisanie "legends" -->
   <script>
-    let keySequence = [];
-    const secretCode = "legends";
-
+    let keySequence = []; const secretCode = "legends";
     function triggerEasterEgg() {
       const flash = document.createElement("div");
       flash.textContent = "LEGENDS AWAKENS!";
@@ -295,11 +338,9 @@
       flash.style.transition = "opacity 0.5s ease";
       flash.style.pointerEvents = "none";
       document.body.appendChild(flash);
-
       setTimeout(() => flash.style.opacity = "1", 50);
       setTimeout(() => flash.style.opacity = "0", 2600);
       setTimeout(() => flash.remove(), 3300);
-
       document.body.style.transition = "transform 0.1s";
       let shakes = 0;
       const shakeInterval = setInterval(() => {
@@ -313,20 +354,17 @@
         }
       }, 50);
     }
-
     document.addEventListener("keydown", (e) => {
       keySequence.push(e.key.toLowerCase());
       if (keySequence.join("").includes(secretCode)) {
-        keySequence = [];
-        triggerEasterEgg();
+        keySequence = []; triggerEasterEgg();
       }
-      if (keySequence.length > secretCode.length) {
-        keySequence.shift();
-      }
+      if (keySequence.length > secretCode.length) keySequence.shift();
     });
   </script>
 </body>
 </html>
+
 
 
 
