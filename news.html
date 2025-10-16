@@ -1,9 +1,9 @@
-<!D<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Nowa Edycja – Customowe Bronie | Legends Risings</title>
+  <title>Legends Risings — Aktualności</title>
   <link rel="icon" type="image/png" href="logo.png" />
 
   <style>
@@ -14,18 +14,17 @@
       --muted: #cbd5e1;
       color-scheme: dark;
     }
-    * { box-sizing: border-box; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color: #f1f5f9;
+      background: #000;
+      overflow-x: hidden;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      padding: 24px;
     }
 
-    /* Tło z blur */
     body::before {
       content: '';
       position: fixed;
@@ -35,6 +34,7 @@
       filter: blur(8px);
       z-index: -2;
     }
+
     body::after {
       content: '';
       position: fixed;
@@ -44,109 +44,241 @@
       z-index: -1;
     }
 
-    .container {
+    .slider {
+      position: relative;
       max-width: 900px;
-      margin: 36px auto;
-      padding: 24px;
+      margin: 60px auto;
+      overflow: hidden;
+      border-radius: 16px;
       background: var(--card);
-      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.6);
     }
 
-    h1 { 
-      color: var(--accent); 
-      margin-bottom: 16px; 
-      text-align: center;
+    .slides {
+      display: flex;
+      transition: transform 0.8s ease;
     }
-    .date {
-      color: var(--muted);
+
+    .slide {
+      min-width: 100%;
+      padding: 24px;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .slide img {
+      width: 100%;
+      border-radius: 12px;
+      margin: 20px 0;
+      transition: transform 0.3s ease;
+      display: block;
+    }
+
+    .slide img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(249,115,22,0.5);
+    }
+
+    .slide h1 {
       text-align: center;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .date {
+      text-align: center;
+      color: var(--muted);
       margin-bottom: 20px;
       font-size: 14px;
     }
-    .content {
-      font-size: 18px;
+
+    .slide p, .slide ul {
+      font-size: 17px;
       line-height: 1.6;
-      text-align: left;
-    }
-    .content img {
-      max-width: 100%;
-      border-radius: 12px;
-      margin: 20px 0;
+      margin-bottom: 14px;
     }
 
-    /* Guziki */
+    .slide ul {
+      margin-left: 20px;
+    }
+
+    .final-text {
+      text-align: center;
+      margin-top: 16px;
+      font-weight: 600;
+      color: var(--accent-light);
+      line-height: 1.5;
+      font-size: 17px;
+    }
+
     .btn {
       display: inline-block;
-      margin-top: 20px;
-      padding: 12px 20px;
+      margin: 20px auto 0 auto;
+      padding: 12px 22px;
       border-radius: 10px;
       font-weight: 600;
       text-decoration: none;
-      transition: background 0.2s, color 0.2s;
-    }
-    .btn.ghost {
       background: transparent;
-      border: 2px solid rgba(255,255,255,0.2);
-      color: #f1f5f9;
-    }
-    .btn.ghost:hover {
-      background: rgba(255,255,255,0.2);
-      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--muted);
+      transition: all 0.25s ease;
+      text-align: center;
     }
 
+    .btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 34px;
+      color: #fff;
+      background: rgba(0,0,0,0.45);
+      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      user-select: none;
+      z-index: 10;
+    }
+
+    .arrow:hover {
+      background: rgba(249,115,22,0.7);
+      transform: translateY(-50%) scale(1.1);
+    }
+
+    .arrow.left { left: 18px; }
+    .arrow.right { right: 18px; }
+
     .footer {
-      margin-top: auto;
+      text-align: center;
       font-size: 14px;
       color: var(--muted);
-      text-align: center;
-      padding: 20px 0;
+      margin-top: 20px;
+      padding-bottom: 30px;
     }
 
     .socials {
-      position: fixed; bottom: 20px; right: 20px;
-      display: flex; flex-direction: column; gap: 12px;
-      z-index: 1001;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 1000;
     }
+
     .socials a {
-      display: flex; align-items: center; gap: 6px;
-      padding: 10px 14px; border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 10px;
       background: rgba(255,255,255,0.05);
-      color: #f1f5f9; text-decoration: none;
+      color: #f1f5f9;
+      text-decoration: none;
       font-weight: 600;
-      transition: background 0.2s;
+      backdrop-filter: blur(6px);
+      transition: all 0.25s ease;
     }
-    .socials a:hover { background: rgba(255,255,255,0.1); }
-    .socials span { font-size: 18px; }
+
+    .socials a:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 900px) {
+      .slider { margin: 30px; }
+    }
+
+    @media (max-width: 600px) {
+      .arrow { display: none; }
+      .slide p, .slide ul { font-size: 16px; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Nowa Edycja – Customowe Bronie z Unikalnymi Teksturami! ⚔️🔥</h1>
-    <div class="date">02.10.2025</div>
-    <div class="content">
-      <p>Witajcie Wojownicy!<br>
-      Z radością ogłaszamy, że na nowej edycji pojawi się coś absolutnie wyjątkowego – 
-      <b>customowe bronie z własnymi, niepowtarzalnymi teksturami!</b></p>
+  <div class="slider">
+    <div class="slides">
 
-      <p>Każda broń została przygotowana specjalnie dla naszej społeczności i nie tylko świetnie wygląda, 
-      ale też wnosi świeżość do rozgrywki. Ogniste miecze, magiczne włócznie, mroczne kosy czy 
-      legendarne ostrza – każdy znajdzie coś dla siebie.</p>
+      <!-- NEWS 1 -->
+      <div class="slide">
+        <h1>Nowa Edycja – Customowe Bronie z Unikalnymi Teksturami! ⚔️🔥</h1>
+        <div class="date">02.10.2025</div>
 
-      <h3>🌟 Co was czeka?</h3>
-      <ul>
-        <li>Unikalne modele 3D i ręcznie robione tekstury</li>
-        <li>Bronie o różnym stylu i klimacie – od fantasy po epickie legendarne artefakty</li>
-        <li>Nowe możliwości PvP oraz jeszcze więcej emocji w walce</li>
-      </ul>
+        <p>Witajcie Wojownicy!<br>
+        Z radością ogłaszamy, że na nowej edycji pojawi się coś absolutnie wyjątkowego – 
+        <strong>customowe bronie z własnymi, niepowtarzalnymi teksturami!</strong></p>
 
-      <p>Przygotujcie się na zupełnie nowy wymiar gry – edycja startuje już niedługo, 
-      a customowe bronie będą tylko u nas! 🔥</p>
+        <p>Każda broń została przygotowana specjalnie dla naszej społeczności i nie tylko świetnie wygląda, 
+        ale też wnosi świeżość do rozgrywki. Ogniste miecze, magiczne włócznie, mroczne kosy czy 
+        legendarne ostrza – każdy znajdzie coś dla siebie.</p>
 
-      <img src="zdjecia/custom.png" alt="Customowe bronie">
+        <h3>🌟 Co was czeka?</h3>
+        <ul>
+          <li>Unikalne modele 3D i ręcznie robione tekstury</li>
+          <li>Bronie o różnym stylu i klimacie – od fantasy po epickie legendarne artefakty</li>
+          <li>Nowe możliwości PvP oraz jeszcze więcej emocji w walce</li>
+        </ul>
 
-      <p>👉 Śledźcie nasze ogłoszenia, żeby nie przegapić startu!</p>
+        <div class="image-container">
+          <img src="zdjecia/custom.png" alt="Customowe bronie">
+        </div>
+
+        <div class="final-text">
+          🔥 Odkryj potęgę customowych broni i pokaż swoją siłę na arenie!<br>
+          👉 Dołącz i przygotuj się na epicką walkę!
+        </div>
+
+        <a class="btn" href="index.html">Powrót</a>
+      </div>
+
+      <!-- NEWS 2 (zmieniona treść + zdanie na górze + 👉) -->
+      <div class="slide">
+        <h1>Nowa Edycja – Inteligentne Spawnery! 💡</h1>
+        <div class="date">16.10.2025</div>
+
+        <p>To zupełnie nowy sposób na rozwój w grze, łączący wygodę z pełną kontrolą nad zasobami.</p>
+
+        <p>🎉 Nadchodzi nowa edycja Legends Rising!</p>
+
+        <p>Przygotujcie się na zupełnie nowe możliwości rozwoju i zarządzania bazą. W tej edycji wprowadzamy zmiany w działaniu spawnów, które pozwolą Wam lepiej kontrolować zdobywanie zasobów, doświadczenia i nagród.</p>
+
+        <h3>Co nowego w spawnach:</h3>
+        <ul>
+          <li><strong>Zwykłe spawnery</strong> – działają standardowo, moby respawnują jak wcześniej, w klasyczny sposób.</li>
+          <li><strong>Zakupione spawery z custom GUI</strong> – jednostki pozostają w spawnerze i co jakiś czas giną.</li>
+          <li><strong>Loot i EXP</strong> – po „śmierci” mobów w GUI można zbierać nagrody i doświadczenie bez walki.</li>
+          <li><strong>Szczegółowe informacje</strong> – dostępne statystyki i dane o spawnach ułatwiają planowanie rozwoju bazy i farm.</li>
+          <li><strong>Większa kontrola i strategia</strong> – system pozwala decydować, co i kiedy zdobywasz, optymalizując rozgrywkę i zarządzanie zasobami.</li>
+        </ul>
+
+        <div class="image-container">
+          <img src="zdjecia/12.png" alt="Inteligentne spawnery">
+        </div>
+
+        <div class="final-text">
+          🔥 Sprawdź nowe spawnery i zoptymalizuj swoją bazę już dziś!<br>
+          👉 Dołącz i odkryj wszystkie funkcje inteligentnych spawnerów!
+        </div>
+
+        <a class="btn" href="index.html">Powrót</a>
+      </div>
+
     </div>
-    <a class="btn ghost" href="index.html">⬅️ Powrót do strony głównej</a>
+
+    <div class="arrow left">❮</div>
+    <div class="arrow right">❯</div>
   </div>
 
   <div class="footer">
@@ -154,11 +286,32 @@
   </div>
 
   <div class="socials">
-    <a href="https://discord.gg/U7WXRhmKNd" target="_blank" rel="noopener noreferrer"><span>💬</span> Discord</a>
-    <a href="https://www.youtube.com/@LegendsRisings" target="_blank" rel="noopener noreferrer"><span>▶️</span> YouTube</a>
-    <a href="https://www.tiktok.com/@legends_risings" target="_blank" rel="noopener noreferrer"><span>🎵</span> TikTok</a>
+    <a href="https://discord.gg/U7WXRhmKNd" target="_blank"><span>💬</span> Discord</a>
+    <a href="https://www.youtube.com/@LegendsRisings" target="_blank"><span>▶️</span> YouTube</a>
+    <a href="https://www.tiktok.com/@legends_risings" target="_blank"><span>🎵</span> TikTok</a>
   </div>
+
+  <script>
+    const slides = document.querySelector('.slides');
+    const slideCount = document.querySelectorAll('.slide').length;
+    let index = 0;
+
+    const updateSlide = () => {
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    };
+
+    document.querySelector('.arrow.right').addEventListener('click', () => {
+      index = (index + 1) % slideCount;
+      updateSlide();
+    });
+
+    document.querySelector('.arrow.left').addEventListener('click', () => {
+      index = (index - 1 + slideCount) % slideCount;
+      updateSlide();
+    });
+  </script>
 </body>
 </html>
+
 
 
