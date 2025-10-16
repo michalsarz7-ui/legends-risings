@@ -5,14 +5,37 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Legends Risings</title>
 
+  <!-- SEO -->
+  <meta name="description" content="Oficjalna strona serwera Minecraft Legends Risings — dołącz do społeczności, zobacz galerię i bądź na bieżąco z nowościami!" />
+  <meta name="theme-color" content="#f97316">
+
+  <!-- Open Graph (Social preview) -->
+  <meta property="og:title" content="Legends Risings">
+  <meta property="og:description" content="Wejdź do świata Legends Risings — Minecraft, eventy, społeczność i więcej!">
+  <meta property="og:image" content="zdjecia/777.png">
+  <meta property="og:type" content="website">
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png">
 
+  <!-- Czcionka Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
+    :root {
+      --primary: #f97316;
+      --primary-hover: #fb923c;
+      --text: #f1f5f9;
+      --bg-overlay: rgba(0,0,0,0.3);
+      --glass: rgba(255, 255, 255, 0.05);
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      color: #f1f5f9;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -21,49 +44,84 @@
       text-align: center;
       position: relative;
       overflow: hidden;
+      padding: 20px;
     }
 
-    /* Rozmyte tło */
     body::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       background: url('zdjecia/777.png') no-repeat center center / cover;
-      background-attachment: fixed;
-      filter: blur(8px);
+      filter: blur(10px);
+      transform: scale(1.05);
       z-index: -2;
     }
 
-    /* Gradientowy overlay, maskuje białe krawędzie */
     body::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+      inset: 0;
+      background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.45));
+      backdrop-filter: blur(1.5px);
       z-index: -1;
     }
 
-    .logo img { width: 220px; margin-bottom: 30px; }
-    h1 { color: #f97316; margin-bottom: 40px; }
-    .buttons { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .logo img {
+      width: 220px;
+      margin-bottom: 20px;
+      animation: fadeIn 1.2s ease-out forwards;
+      transition: all 0.4s ease;
+      cursor: pointer;
+    }
+
+    .logo img:hover {
+      transform: scale(1.08) rotate(2deg);
+      filter: brightness(1.15) drop-shadow(0 0 15px rgba(249, 115, 22, 0.4));
+    }
+
+    /* Nagłówek z przepływającym gradientem */
+    h1 {
+      font-size: 2.4rem;
+      letter-spacing: 1px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #f97316, #fb923c, #ffffff, #f97316);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 3s ease infinite;
+      margin-bottom: 30px;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0%; }
+      50% { background-position: 100%; }
+      100% { background-position: 0%; }
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      justify-content: center;
+      animation: fadeIn 1.6s ease-out forwards;
+    }
+
     .btn {
-      padding: 14px 24px;
-      border-radius: 12px;
-      background: #f97316;
+      padding: 14px 26px;
+      border-radius: 14px;
+      background: var(--primary);
       color: #fff;
       font-weight: 600;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
     }
-    .btn:hover { background: #fb923c; }
+    .btn:hover {
+      background: var(--primary-hover);
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    }
 
-    /* Social media w prawym dolnym rogu */
     .socials {
       position: fixed;
       bottom: 20px;
@@ -71,35 +129,56 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+      animation: fadeIn 2s ease-out forwards;
     }
+
     .socials a {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       padding: 10px 14px;
       border-radius: 10px;
-      background: rgba(255,255,255,0.05);
-      color: #f1f5f9;
+      background: var(--glass);
+      color: var(--text);
       text-decoration: none;
       font-weight: 600;
-      transition: background 0.2s;
+      backdrop-filter: blur(6px);
+      transition: all 0.25s ease;
     }
-    .socials a:hover { background: rgba(255,255,255,0.1); }
-    .socials span { font-size: 18px; }
 
-    /* Stopka z informacjami o serwerze i wersji */
+    .socials a:hover {
+      background: rgba(255,255,255,0.12);
+      transform: translateY(-2px);
+    }
+
     .footer {
       margin-top: 40px;
       font-size: 14px;
       color: rgba(241, 245, 249, 0.7);
+      animation: fadeIn 1.8s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .btn { padding: 12px 20px; font-size: 0.95rem; }
+      .socials { right: 10px; bottom: 10px; }
+      .logo img { width: 180px; }
     }
   </style>
 </head>
+
 <body>
   <div class="logo">
-    <img src="logo.png" alt="Legends Risings Logo">
+    <img src="logo.png" alt="Legends Risings Logo" title="Kliknij, by wrócić do głównej!">
   </div>
+
   <h1>Legends Risings</h1>
+
   <div class="buttons">
     <a class="btn" href="zakupy.html">🛒 Zakupy</a>
     <a class="btn" href="regulamin.html">🛡️ Regulamin</a>
@@ -107,12 +186,10 @@
     <a class="btn" href="news.html">📰 News</a>
   </div>
 
-  <!-- Stopka z adresem IP i wersją -->
   <div class="footer">
     ip-legendsrising.pl | wersja 1.21.5+
   </div>
 
-  <!-- Social media -->
   <div class="socials">
     <a href="https://discord.gg/U7WXRhmKNd" target="_blank" rel="noopener noreferrer">
       <span>💬</span> Discord
@@ -124,8 +201,133 @@
       <span>🎵</span> TikTok
     </a>
   </div>
+
+  <!-- NIESPODZIANKA #1: Losowe ukryte teksty -->
+  <script>
+    const secretMessages = [
+      "👀 Ktoś tu jest?",
+      "✨ Coś się zbliża...",
+      "🤫 Sekret Legends...",
+      "🌌 Czy to przypadek?",
+      "🔥 Czujesz tę energię?"
+    ];
+
+    function showSecretMessage() {
+      const msg = document.createElement("div");
+      msg.textContent = secretMessages[Math.floor(Math.random() * secretMessages.length)];
+      msg.style.position = "fixed";
+      msg.style.fontSize = "1rem";
+      msg.style.fontWeight = "600";
+      msg.style.opacity = "0";
+      msg.style.transition = "opacity 1s ease";
+      msg.style.pointerEvents = "none";
+
+      const randomX = Math.random() * 80 + 10;
+      const randomY = Math.random() * 80 + 10;
+
+      msg.style.left = randomX + "vw";
+      msg.style.top = randomY + "vh";
+
+      document.body.appendChild(msg);
+
+      setTimeout(() => { msg.style.opacity = "1"; }, 50);
+      setTimeout(() => { msg.style.opacity = "0"; }, 3500);
+      setTimeout(() => { msg.remove(); }, 4500);
+    }
+
+    setInterval(showSecretMessage, 12000);
+  </script>
+
+  <!-- NIESPODZIANKA #2: Konfetti po kliknięciu logo -->
+  <script>
+    function startConfetti() {
+      const duration = 1800;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        const colors = ['#f97316', '#fb923c', '#ffffff'];
+        for (let i = 0; i < 12; i++) {
+          const div = document.createElement('div');
+          div.style.position = 'fixed';
+          div.style.top = '-10px';
+          div.style.left = Math.random() * 100 + 'vw';
+          div.style.width = '8px';
+          div.style.height = '14px';
+          div.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+          div.style.opacity = '0.9';
+          div.style.transform = `rotate(${Math.random() * 360}deg)`;
+          div.style.transition = 'transform 1.5s ease, top 1.5s ease, opacity 1.6s';
+
+          document.body.appendChild(div);
+
+          setTimeout(() => {
+            div.style.top = '100vh';
+            div.style.opacity = '0';
+            div.style.transform = `rotate(${Math.random() * 360}deg)`;
+          }, 10);
+
+          setTimeout(() => div.remove(), 1600);
+        }
+        if (Date.now() < end) requestAnimationFrame(frame);
+      })();
+    }
+
+    document.querySelector('.logo img')?.addEventListener('click', startConfetti);
+  </script>
+
+  <!-- NIESPODZIANKA #3: Easter egg – wpisanie "legends" -->
+  <script>
+    let keySequence = [];
+    const secretCode = "legends";
+
+    function triggerEasterEgg() {
+      const flash = document.createElement("div");
+      flash.textContent = "LEGENDS AWAKENS!";
+      flash.style.position = "fixed";
+      flash.style.top = "50%";
+      flash.style.left = "50%";
+      flash.style.transform = "translate(-50%, -50%)";
+      flash.style.fontSize = "2rem";
+      flash.style.fontWeight = "700";
+      flash.style.color = "#f97316";
+      flash.style.textShadow = "0 0 20px rgba(249,115,22,0.8)";
+      flash.style.opacity = "0";
+      flash.style.transition = "opacity 0.5s ease";
+      flash.style.pointerEvents = "none";
+      document.body.appendChild(flash);
+
+      setTimeout(() => flash.style.opacity = "1", 50);
+      setTimeout(() => flash.style.opacity = "0", 2600);
+      setTimeout(() => flash.remove(), 3300);
+
+      document.body.style.transition = "transform 0.1s";
+      let shakes = 0;
+      const shakeInterval = setInterval(() => {
+        const x = (Math.random() - 0.5) * 10;
+        const y = (Math.random() - 0.5) * 10;
+        document.body.style.transform = `translate(${x}px, ${y}px)`;
+        shakes++;
+        if (shakes > 15) {
+          clearInterval(shakeInterval);
+          document.body.style.transform = "translate(0, 0)";
+        }
+      }, 50);
+    }
+
+    document.addEventListener("keydown", (e) => {
+      keySequence.push(e.key.toLowerCase());
+      if (keySequence.join("").includes(secretCode)) {
+        keySequence = [];
+        triggerEasterEgg();
+      }
+      if (keySequence.length > secretCode.length) {
+        keySequence.shift();
+      }
+    });
+  </script>
 </body>
 </html>
+
 
 
 
