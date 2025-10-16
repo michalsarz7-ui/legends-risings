@@ -230,6 +230,44 @@
       background: #fb923c;
       transform: scale(1.05);
     }
+
+    /* === LICZNIK W ROGU === */
+    .floating-countdown {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(20, 20, 20, 0.65);
+      backdrop-filter: blur(6px);
+      padding: 10px 16px;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.4);
+      color: #f1f5f9;
+      font-weight: 600;
+      font-size: 0.95rem;
+      z-index: 1500;
+      animation: fadeIn 1.5s ease-out forwards;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .floating-countdown .timer-mini span {
+      color: #fb923c;
+      font-weight: 700;
+    }
+
+    .floating-countdown:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      transition: 0.25s ease;
+    }
+
+    @media (max-width: 600px) {
+      .floating-countdown {
+        font-size: 0.8rem;
+        padding: 8px 12px;
+        left: 10px;
+        bottom: 10px;
+      }
+    }
   </style>
 </head>
 
@@ -268,7 +306,18 @@
     </div>
   </div>
 
+  <!-- LICZNIK W ROGU -->
+  <div class="floating-countdown">
+    <div class="timer-mini">
+      <span id="days">00</span>d :
+      <span id="hours">00</span>h :
+      <span id="minutes">00</span>m :
+      <span id="seconds">00</span>s
+    </div>
+  </div>
+
   <script>
+    // Kontakt modal
     const contactBtn = document.getElementById('contactBtn');
     const contactModal = document.getElementById('contactModal');
     const closeBtn = contactModal.querySelector('.close-btn');
@@ -278,10 +327,8 @@
     contactModal.addEventListener('click', e => {
       if (e.target === contactModal) contactModal.classList.remove('active');
     });
-  </script>
 
-  <!-- Sekretne animacje -->
-  <script>
+    // Sekretne animacje
     const secretMessages = ["👀 Ktoś tu jest?", "✨ Coś się zbliża...", "🤫 Sekret Legends...", "🌌 Czy to przypadek?", "🔥 Czujesz tę energię?"];
     function showSecretMessage() {
       const msg = document.createElement("div");
@@ -295,9 +342,8 @@
       setTimeout(() => { msg.remove(); }, 4500);
     }
     setInterval(showSecretMessage, 12000);
-  </script>
 
-  <script>
+    // Confetti
     function startConfetti() {
       const duration = 1800; const end = Date.now() + duration;
       (function frame() {
@@ -319,9 +365,8 @@
       })();
     }
     document.querySelector('.logo img')?.addEventListener('click', startConfetti);
-  </script>
 
-  <script>
+    // Easter egg
     let keySequence = []; const secretCode = "legends";
     function triggerEasterEgg() {
       const flash = document.createElement("div");
@@ -329,11 +374,14 @@
       flash.style.position = "fixed";
       flash.style.top = "50%";
       flash.style.left = "50%";
-      flash.style.transform = "translate(-50%, -50%)";
+      flash.style.transform = "translate(-50%, -70%)";
       flash.style.fontSize = "2rem";
       flash.style.fontWeight = "700";
       flash.style.color = "#f97316";
       flash.style.textShadow = "0 0 20px rgba(249,115,22,0.8)";
+      flash.style.background = "rgba(0,0,0,0.6)";
+      flash.style.padding = "10px 20px";
+      flash.style.borderRadius = "10px";
       flash.style.opacity = "0";
       flash.style.transition = "opacity 0.5s ease";
       flash.style.pointerEvents = "none";
@@ -361,9 +409,35 @@
       }
       if (keySequence.length > secretCode.length) keySequence.shift();
     });
+
+    // Licznik do 5 grudnia 2025, godz. 18:00
+    const countdownDate = new Date("December 5, 2025 18:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").textContent = days.toString().padStart(2, "0");
+      document.getElementById("hours").textContent = hours.toString().padStart(2, "0");
+      document.getElementById("minutes").textContent = minutes.toString().padStart(2, "0");
+      document.getElementById("seconds").textContent = seconds.toString().padStart(2, "0");
+
+      if (distance < 0) {
+        document.querySelector(".floating-countdown .timer-mini").textContent = "🔥 Druga edycja wystartowała!";
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
   </script>
 </body>
 </html>
+
 
 
 
