@@ -10,162 +10,225 @@
     :root {
       --card: rgba(26,26,26,0.85);
       --accent: #f97316;
-      --accent-light: #fb923c;
+      --accent-hover: #fb923c;
       --muted: #cbd5e1;
       color-scheme: dark;
     }
-    * { box-sizing: border-box; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
-      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial;
       color: #f1f5f9;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       text-align: center;
       padding: 24px;
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      background: rgba(0,0,0,0.03);
     }
 
-    /* Tło z blur */
+    /* TŁO */
     body::before {
       content: '';
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      inset: 0;
       background: url('zdjecia/2.png') no-repeat center center / cover;
-      filter: blur(8px);
+      filter: blur(6px);
       z-index: -2;
     }
     body::after {
       content: '';
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
+      inset: 0;
+      background: rgba(0,0,0,0.35);
       z-index: -1;
     }
 
+    /* KONTENER */
     .container {
       max-width: 1200px;
-      margin: 36px auto;
+      margin: 40px auto;
       padding: 24px;
       background: var(--card);
-      border-radius: 14px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.4);
       display: flex;
       flex-direction: column;
       align-items: center;
+      animation: fadeIn 0.8s ease-out;
     }
-    h1 { color: var(--accent); margin-bottom: 30px; }
+
+    h1 {
+      color: var(--accent);
+      margin-bottom: 30px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
 
     /* GALERIA */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 3 w rzędzie na desktopie */
-      gap: 16px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
       margin-bottom: 24px;
+      width: 100%;
     }
+
     .gallery img {
       width: 100%;
       height: 220px;
       object-fit: cover;
-      border-radius: 12px;
+      border-radius: 14px;
       cursor: pointer;
-      transition: transform 0.2s;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.6s forwards;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      transition: transform 0.25s, box-shadow 0.25s;
     }
-    .gallery img:hover { transform: scale(1.05); }
 
-    /* Tablet */
+    .gallery img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(249,115,22,0.4);
+    }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSYWNOŚĆ */
     @media (max-width: 900px) {
-      .gallery {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .gallery { grid-template-columns: repeat(2, 1fr); }
     }
 
-    /* Telefon */
     @media (max-width: 600px) {
-      .gallery {
-        grid-template-columns: 1fr;
-      }
+      .gallery { grid-template-columns: 1fr; }
     }
 
-    /* Modal */
+    /* MODAL */
     .modal {
       display: none;
       position: fixed;
-      z-index: 1000;
-      left: 0; top: 0;
-      width: 100%; height: 100%;
+      inset: 0;
       background: rgba(0,0,0,0.85);
       align-items: center;
       justify-content: center;
       flex-direction: column;
       opacity: 0;
       transition: opacity 0.3s ease;
+      z-index: 1000;
     }
+
     .modal.show {
       display: flex;
       opacity: 1;
     }
+
     .modal img {
-      max-width: 90%; max-height: 80%;
+      max-width: 90%;
+      max-height: 80%;
       border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.8);
+      box-shadow: 0 0 25px rgba(0,0,0,0.8);
       transition: transform 0.3s ease;
-      transform: scale(0.8);
     }
-    .modal.show img {
-      transform: scale(1);
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 40px;
+      color: #fff;
+      cursor: pointer;
+      transition: transform 0.2s;
     }
-    .close { position: absolute; top: 20px; right: 30px; font-size: 40px; color: #fff; cursor: pointer; }
+    .close:hover { transform: scale(1.2); }
+
     .nav-btn {
-      position: absolute; top: 50%;
+      position: absolute;
+      top: 50%;
       transform: translateY(-50%);
-      font-size: 50px; color: #fff;
-      cursor: pointer; user-select: none; padding: 10px;
+      font-size: 50px;
+      color: #fff;
+      cursor: pointer;
+      user-select: none;
+      padding: 10px;
     }
+
     .prev { left: 40px; }
     .next { right: 40px; }
 
+    /* GUZIK POWROTU — styl dokładnie jak w regulaminie/zakupy */
     .btn {
       display: inline-block;
-      margin-top: 20px;
-      padding: 14px 24px;
-      border-radius: 12px;
-      background: var(--accent);
-      color: #fff;
+      margin-top: 24px;
+      padding: 14px 28px;
+      border-radius: 10px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--muted);
       font-weight: 600;
       text-decoration: none;
-      transition: background 0.2s;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.3);
     }
-    .btn:hover { background: var(--accent-light); }
-    .btn.ghost {
-      background: transparent;
-      border: 2px solid rgba(255,255,255,0.2);
-      color: #f1f5f9;
-    }
-    .btn.ghost:hover { background: rgba(255,255,255,0.2); color: #fff; }
 
+    .btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    }
+
+    /* STOPKA */
     .footer {
-      margin-top: auto;
+      margin: 40px 0 12px;
       font-size: 14px;
-      color: var(--muted);
+      color: rgba(241,245,249,0.75);
+      text-align: center;
     }
 
+    .copyright {
+      margin-top: 8px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    /* SOCIALS */
     .socials {
-      position: fixed; bottom: 20px; right: 20px;
-      display: flex; flex-direction: column; gap: 12px;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       z-index: 1001;
     }
+
     .socials a {
-      display: flex; align-items: center; gap: 6px;
-      padding: 10px 14px; border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 14px;
+      border-radius: 10px;
       background: rgba(255,255,255,0.05);
-      color: #f1f5f9; text-decoration: none;
+      color: #f1f5f9;
+      text-decoration: none;
       font-weight: 600;
       transition: background 0.2s;
     }
-    .socials a:hover { background: rgba(255,255,255,0.1); }
-    .socials span { font-size: 18px; }
+
+    .socials a:hover {
+      background: rgba(255,255,255,0.1);
+    }
   </style>
 </head>
 <body>
@@ -184,14 +247,16 @@
       <img src="zdjecia/777.png" alt="777" loading="lazy">
     </div>
 
-    <a class="btn ghost" href="index.html">⬅️ Powrót do strony głównej</a>
+    <!-- przycisk Powrót (dokładnie jak w regulaminie) -->
+    <a class="btn" href="index.html">⬅️ Powrót</a>
   </div>
 
   <div class="footer">
-    ip-legendsrising.pl | wersja 1.21.5+
+    ip-legendsrising.pl | wersja 1.21.5+<br>
+    <div class="copyright">© 2025 Legends Risings. Wszystkie prawa zastrzeżone.</div>
   </div>
 
-  <!-- Modal -->
+  <!-- MODAL -->
   <div class="modal" id="modal">
     <span class="close" id="close">&times;</span>
     <span class="nav-btn prev" id="prev">◀</span>
@@ -199,6 +264,7 @@
     <span class="nav-btn next" id="next">▶</span>
   </div>
 
+  <!-- SOCIAL MEDIA -->
   <div class="socials">
     <a href="https://discord.gg/U7WXRhmKNd" target="_blank" rel="noopener noreferrer"><span>💬</span> Discord</a>
     <a href="https://www.youtube.com/@LegendsRisings" target="_blank" rel="noopener noreferrer"><span>▶️</span> YouTube</a>
@@ -224,7 +290,7 @@
 
     function closeModal() {
       modal.classList.remove('show');
-      modal.style.display = "none";
+      setTimeout(() => modal.style.display = "none", 300);
     }
 
     function showNext() {
@@ -237,22 +303,22 @@
       modalImg.src = images[currentIndex].src;
     }
 
-    images.forEach((img, index) => img.addEventListener("click", () => openModal(index)));
-
+    images.forEach((img, i) => img.addEventListener("click", () => openModal(i)));
     closeBtn.onclick = closeModal;
     nextBtn.onclick = showNext;
     prevBtn.onclick = showPrev;
-    modal.onclick = (e) => { if(e.target === modal) closeModal(); };
-    document.addEventListener("keydown", (e) => {
-      if(modal.style.display === "flex") {
-        if(e.key === "ArrowRight") showNext();
-        if(e.key === "ArrowLeft") showPrev();
-        if(e.key === "Escape") closeModal();
+    modal.onclick = e => { if (e.target === modal) closeModal(); };
+    document.addEventListener("keydown", e => {
+      if (modal.style.display === "flex") {
+        if (e.key === "ArrowRight") showNext();
+        if (e.key === "ArrowLeft") showPrev();
+        if (e.key === "Escape") closeModal();
       }
     });
   </script>
 </body>
 </html>
+
 
 
 
