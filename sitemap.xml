@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <!-- Strona główna -->
+  <url>
+    <loc>https://legendsrising.pl/</loc>
+    <lastmod>2025-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Zakupy -->
+  <url>
+    <loc>https://legendsrising.pl/zakupy.html</loc>
+    <lastmod>2025-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Regulamin -->
+  <url>
+    <loc>https://legendsrising.pl/regulamin.html</loc>
+    <lastmod>2025-10-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Galeria -->
+  <url>
+    <loc>https://legendsrising.pl/galeria.html</loc>
+    <lastmod>2025-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- News -->
+  <url>
+    <loc>https://legendsrising.pl/news.html</loc>
+    <lastmod>2025-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Możesz dodać tu kolejne podstrony, np. kontakt, eventy itp. -->
+  
+</urlset>
