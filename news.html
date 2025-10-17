@@ -57,6 +57,7 @@
     .slides {
       display: flex;
       transition: transform 0.8s ease;
+      touch-action: pan-x;
     }
 
     .slide {
@@ -202,8 +203,8 @@
     }
 
     @media (max-width: 600px) {
-      .arrow { display: none; }
       .slide p, .slide ul { font-size: 16px; }
+      .arrow { width: 40px; height: 40px; font-size: 28px; }
     }
   </style>
 </head>
@@ -243,7 +244,7 @@
         <a class="btn" href="index.html">Powrót</a>
       </div>
 
-      <!-- NEWS 2 (zmieniona treść + zdanie na górze + 👉) -->
+      <!-- NEWS 2 -->
       <div class="slide">
         <h1>Nowa Edycja – Inteligentne Spawnery! 💡</h1>
         <div class="date">16.10.2025</div>
@@ -309,9 +310,39 @@
       index = (index - 1 + slideCount) % slideCount;
       updateSlide();
     });
+
+    // Obsługa swipe na telefonach
+    let startX = 0;
+    let isDragging = false;
+
+    slides.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+      isDragging = true;
+    });
+
+    slides.addEventListener('touchmove', e => {
+      if (!isDragging) return;
+      const x = e.touches[0].clientX;
+      const diff = startX - x;
+      if (diff > 50) { // swipe w lewo
+        index = (index + 1) % slideCount;
+        updateSlide();
+        isDragging = false;
+      } else if (diff < -50) { // swipe w prawo
+        index = (index - 1 + slideCount) % slideCount;
+        updateSlide();
+        isDragging = false;
+      }
+    });
+
+    slides.addEventListener('touchend', () => {
+      isDragging = false;
+    });
   </script>
 </body>
 </html>
+
+
 
 
 
