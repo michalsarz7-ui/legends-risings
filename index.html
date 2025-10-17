@@ -22,6 +22,22 @@
   <link rel="icon" type="image/png" href="favicon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <!-- ✅ Dane strukturalne z logo dla Google -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Legends Risings",
+    "url": "https://legendsrising.pl/",
+    "logo": "https://legendsrising.pl/logo.png",
+    "sameAs": [
+      "https://discord.gg/U7WXRhmKNd",
+      "https://www.youtube.com/@LegendsRisings",
+      "https://www.tiktok.com/@legends_risings"
+    ]
+  }
+  </script>
+
   <style>
     :root {
       --primary: #f97316;
@@ -337,10 +353,17 @@
     function showSecretMessage() {
       const msg = document.createElement("div");
       msg.textContent = secretMessages[Math.floor(Math.random() * secretMessages.length)];
-      msg.style.position = "fixed"; msg.style.fontSize = "1rem"; msg.style.fontWeight = "600";
-      msg.style.opacity = "0"; msg.style.transition = "opacity 1s ease"; msg.style.pointerEvents = "none";
-      const randomX = Math.random() * 80 + 10; const randomY = Math.random() * 80 + 10;
-      msg.style.left = randomX + "vw"; msg.style.top = randomY + "vh"; document.body.appendChild(msg);
+      msg.style.position = "fixed";
+      msg.style.fontSize = "1rem";
+      msg.style.fontWeight = "600";
+      msg.style.opacity = "0";
+      msg.style.transition = "opacity 1s ease";
+      msg.style.pointerEvents = "none";
+      const randomX = Math.random() * 80 + 10;
+      const randomY = Math.random() * 80 + 10;
+      msg.style.left = randomX + "vw";
+      msg.style.top = randomY + "vh";
+      document.body.appendChild(msg);
       setTimeout(() => { msg.style.opacity = "1"; }, 50);
       setTimeout(() => { msg.style.opacity = "0"; }, 3500);
       setTimeout(() => { msg.remove(); }, 4500);
@@ -349,14 +372,17 @@
 
     // Confetti
     function startConfetti() {
-      const duration = 1800; const end = Date.now() + duration;
+      const duration = 1800;
+      const end = Date.now() + duration;
       (function frame() {
         const colors = ['#f97316', '#fb923c', '#ffffff'];
         for (let i = 0; i < 12; i++) {
           const div = document.createElement('div');
-          div.style.position = 'fixed'; div.style.top = '-10px';
+          div.style.position = 'fixed';
+          div.style.top = '-10px';
           div.style.left = Math.random() * 100 + 'vw';
-          div.style.width = '8px'; div.style.height = '14px';
+          div.style.width = '8px';
+          div.style.height = '14px';
           div.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
           div.style.opacity = '0.9';
           div.style.transform = `rotate(${Math.random() * 360}deg)`;
@@ -371,7 +397,8 @@
     document.querySelector('.logo img')?.addEventListener('click', startConfetti);
 
     // Easter egg
-    let keySequence = []; const secretCode = "legends";
+    let keySequence = [];
+    const secretCode = "legends";
     function triggerEasterEgg() {
       const flash = document.createElement("div");
       flash.textContent = "LEGENDS AWAKENS!";
@@ -409,38 +436,34 @@
     document.addEventListener("keydown", (e) => {
       keySequence.push(e.key.toLowerCase());
       if (keySequence.join("").includes(secretCode)) {
-        keySequence = []; triggerEasterEgg();
+        keySequence = [];
+        triggerEasterEgg();
       }
       if (keySequence.length > secretCode.length) keySequence.shift();
     });
 
     // Licznik do 5 grudnia 2025, godz. 18:00
     const countdownDate = new Date("December 5, 2025 18:00:00").getTime();
-
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = countdownDate - now;
-
+      if (distance < 0) return;
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      document.getElementById("days").textContent = days.toString().padStart(2, "0");
-      document.getElementById("hours").textContent = hours.toString().padStart(2, "0");
-      document.getElementById("minutes").textContent = minutes.toString().padStart(2, "0");
-      document.getElementById("seconds").textContent = seconds.toString().padStart(2, "0");
-
-      if (distance < 0) {
-        document.querySelector(".floating-countdown .timer-mini").textContent = "🔥 Druga edycja wystartowała!";
-      }
+      document.getElementById("days").textContent = String(days).padStart(2, '0');
+      document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
     }
-
-    updateCountdown();
     setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
 </body>
 </html>
+
+
 
 
 
