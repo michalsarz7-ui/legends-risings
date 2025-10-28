@@ -267,10 +267,11 @@
       z-index: 1500;
       animation: fadeIn 1.5s ease-out forwards;
       border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer;
     }
 
     .floating-countdown .timer-mini span {
-      color: #fb923c;
+      color: #f97316;
       font-weight: 700;
     }
 
@@ -287,6 +288,56 @@
         left: 10px;
         bottom: 10px;
       }
+    }
+
+    /* === MODAL TRAILERA === */
+    .trailer-modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(4px);
+      z-index: 3000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .trailer-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .trailer-content {
+      position: relative;
+      width: 80%;
+      max-width: 800px;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .trailer-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #f97316;
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 10;
+      transition: 0.25s;
+    }
+
+    .trailer-close:hover {
+      background: #fb923c;
     }
   </style>
 </head>
@@ -327,7 +378,7 @@
   </div>
 
   <!-- LICZNIK W ROGU -->
-  <div class="floating-countdown">
+  <div class="floating-countdown" id="countdown">
     <div class="timer-mini">
       <span id="days">00</span>d :
       <span id="hours">00</span>h :
@@ -336,8 +387,15 @@
     </div>
   </div>
 
+  <!-- MODAL TRAILERA -->
+  <div class="trailer-modal" id="trailerModal">
+    <div class="trailer-content">
+      <button class="trailer-close">✕</button>
+      <iframe id="trailerFrame" width="100%" height="100%" src="" frameborder="0" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+    </div>
+  </div>
   <script>
-    // Kontakt modal
+    // === MODAL KONTAKTU ===
     const contactBtn = document.getElementById('contactBtn');
     const contactModal = document.getElementById('contactModal');
     const closeBtn = contactModal.querySelector('.close-btn');
@@ -348,7 +406,7 @@
       if (e.target === contactModal) contactModal.classList.remove('active');
     });
 
-    // Sekretne animacje
+    // === SEKRETNE ANIMACJE ===
     const secretMessages = ["👀 Ktoś tu jest?", "✨ Coś się zbliża...", "🤫 Sekret Legends...", "🌌 Czy to przypadek?", "🔥 Czujesz tę energię?"];
     function showSecretMessage() {
       const msg = document.createElement("div");
@@ -370,7 +428,7 @@
     }
     setInterval(showSecretMessage, 12000);
 
-    // Confetti
+    // === CONFETTI ===
     function startConfetti() {
       const duration = 1800;
       const end = Date.now() + duration;
@@ -396,7 +454,7 @@
     }
     document.querySelector('.logo img')?.addEventListener('click', startConfetti);
 
-    // Easter egg
+    // === EASTER EGG ===
     let keySequence = [];
     const secretCode = "legends";
     function triggerEasterEgg() {
@@ -442,7 +500,7 @@
       if (keySequence.length > secretCode.length) keySequence.shift();
     });
 
-    // Licznik do 5 grudnia 2025, godz. 18:00
+    // === LICZNIK ===
     const countdownDate = new Date("December 5, 2025 18:00:00").getTime();
     function updateCountdown() {
       const now = new Date().getTime();
@@ -459,6 +517,29 @@
     }
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    // === TRAILER PO KLIKNIECIU LICZNIKA ===
+    const countdown = document.getElementById('countdown');
+    const trailerModal = document.getElementById('trailerModal');
+    const trailerFrame = document.getElementById('trailerFrame');
+    const trailerClose = trailerModal.querySelector('.trailer-close');
+
+    countdown.addEventListener('click', () => {
+      trailerFrame.src = "https://www.youtube.com/embed/Bg4ZV7W46Bw?autoplay=1";
+      trailerModal.classList.add('active');
+    });
+
+    trailerClose.addEventListener('click', () => {
+      trailerFrame.src = "";
+      trailerModal.classList.remove('active');
+    });
+
+    trailerModal.addEventListener('click', e => {
+      if (e.target === trailerModal) {
+        trailerFrame.src = "";
+        trailerModal.classList.remove('active');
+      }
+    });
   </script>
 </body>
 </html>
